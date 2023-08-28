@@ -1,4 +1,3 @@
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -87,17 +86,19 @@ dependencies {
 
 }
 
-tasks.withType<JavaCompile> {
-    options.compilerArgs.addAll(listOfNotNull(
-        "--enable-preview",
-        "--add-modules", "jdk.incubator.concurrent"
-    ))
-}
+//tasks.withType<JavaCompile> {
+//    options.compilerArgs.addAll(
+//        listOfNotNull(
+//            "--enable-preview",
+//            "--add-modules", "jdk.incubator.concurrent"
+//        )
+//    )
+//}
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 
-    jvmArgs("--enable-preview", "--add-modules", "jdk.incubator.concurrent")
+//    jvmArgs("--enable-preview", "--add-modules", "jdk.incubator.concurrent")
 
     testLogging {
         events("passed", "skipped", "failed", "standardOut", "standardError")
