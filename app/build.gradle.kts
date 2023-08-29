@@ -1,3 +1,5 @@
+import com.android.tools.build.bundletool.model.KeystoreProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -21,13 +23,28 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            /*storeFile = file("../keystores/waqarvicky.jks")
+            storePassword = "waqarvicky"
+            keyAlias = "waqarvicky"
+            keyPassword = "waqarvicky"*/
+
+            storeFile = file(project.property("KEYSTORE_FILE").toString())
+            storePassword = project.property("KEYSTORE_PASSWORD").toString()
+            keyAlias = project.property("SIGNING_KEY_ALIAS").toString()
+            keyPassword = project.property("SIGNING_KEY_PASSWORD").toString()
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
