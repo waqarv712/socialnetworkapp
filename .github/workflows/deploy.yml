@@ -40,6 +40,9 @@ jobs:
           java-version: 17
           cache: 'gradle'
 
+      - name: Grand execute permissions to gradlew
+        run: chmod +x gradlew
+
       - name: Assemble app debug APK
         run: ./gradlew assembleDebug
 
