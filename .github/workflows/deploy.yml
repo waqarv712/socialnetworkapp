@@ -58,38 +58,31 @@ jobs:
           name: app-debug-androidTest
           path: app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
 
-    firebase:
-      name: Run UI tests with Firebase Test Lab
-      needs: apk
-      runs-on: ubuntu-latest
-
-      steps:
-        - uses: actions/checkout@v3
-
-        - name: Download app APK
-          uses: actions/download-artifact@v1
-          with:
-            name: app-debug
-
-        - name: Download app test APK
-          uses: actions/download-artifact@v1
-          with:
-            name: app-debug-androidTest
-
-        - id: Auth
-          uses: google-github-actions/auth@v0
-          with:
-            project_id: ${{ secrets.FRIENDS_PROJECT_ID }}
-            credentials_json: ${{ secrets.FRIENDS_FIREBASE_TEST_LAB_AUTH }}
-
-        - name: Set up Google Cloud SDK
-          uses: google-github-actions/setup-gcloud@v0
-
-        - name: Use gcloud CLI
-          run: gcloud info
-
-        - name: Run instrumentation tests in Firebase Test Lab
-          run: gcloud firebase test android run --type instrumentation --app app-debug/app-debug.apk --test app-debug-androidTest/app-debug-androidTest.apk --device model=flame,version=30
+  firebase:
+    name: Run UI tests with Firebase Test Lab
+    needs: apk
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download app APK
+        uses: actions/download-artifact@v1
+        with:
+          name: app-debug
+      - name: Download app test APK
+        uses: actions/download-artifact@v1
+        with:
+          name: app-debug-androidTest
+      - id: Auth
+        uses: google-github-actions/auth@v0
+        with:
+          project_id: ${{ secrets.FRIENDS_PROJECT_ID }}
+          credentials_json: ${{ secrets.FRIENDS_FIREBASE_TEST_LAB_AUTH }}
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+      - name: Use gcloud CLI
+        run: gcloud info
+      - name: Run instrumentation tests in Firebase Test Lab
+        run: gcloud firebase test android run --type instrumentation --app app-debug/app-debug.apk --test app-debug-androidTest/app-debug-androidTest.apk --device model=flame,version=30
 
   distribute:
     name: Distribute app bundle to Play Store
