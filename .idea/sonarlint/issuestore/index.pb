@@ -2,8 +2,6 @@
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-q
-Aapp/src/main/java/com/waqarvicky/socialnetworkapp/MainActivity.kt,7\f\7fc4b9e45640d6781b56227403150087822121bb
 ]
 -.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
 S
