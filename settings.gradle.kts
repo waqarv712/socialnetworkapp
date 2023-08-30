@@ -3,6 +3,11 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        /*mavenCentral(){
+            content {
+                includeModule("org.jetbrain.kotlinx", "kotlinx-collections-immutable-jvm")
+            }
+        }*/
     }
 }
 dependencyResolutionManagement {
