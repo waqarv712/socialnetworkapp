@@ -102,25 +102,34 @@ private fun PasswordField(
 ) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
+    val visualTransformation =
+        if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
+
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         value = value,
         label = {
             Text(text = stringResource(id = R.string.password))
         },
-        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+        visualTransformation = visualTransformation,
         trailingIcon = {
-            val image = if (passwordVisible)
-                Icons.Filled.Visibility
-            else Icons.Filled.VisibilityOff
-            // Please provide localized description for accessibility services
-            val description = if (passwordVisible) "Hide password" else "Show password"
-
-            IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                Icon(imageVector = image, description)
-            }
+            VisibilityToggle(passwordVisible)
         },
         onValueChange = onValueChange)
+}
+
+@Composable
+private fun VisibilityToggle(passwordVisible: Boolean) {
+    var passwordVisible1 = passwordVisible
+    val image = if (passwordVisible1)
+        Icons.Filled.Visibility
+    else Icons.Filled.VisibilityOff
+    // Please provide localized description for accessibility services
+    val description = if (passwordVisible1) "Hide password" else "Show password"
+
+    IconButton(onClick = { passwordVisible1 = !passwordVisible1 }) {
+        Icon(imageVector = image, description)
+    }
 }
 
 @Composable

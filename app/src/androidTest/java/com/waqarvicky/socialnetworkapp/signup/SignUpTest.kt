@@ -12,9 +12,6 @@ class SignUpTest {
 
     @Test
     fun performSignUp() {
-
-        val fn: (a: Int, b: Int) -> Int
-
         launchSignUpScreen(signUpTestRule) {
             typeEmail("waqarvicky@socialnetwork.app")
             typePassword("password")
