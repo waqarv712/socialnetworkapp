@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Social Network App</string>
+    <string name="appName">Social Network App</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="signUp">Sign Up</string>
     <string name="timeLine">Timeline</string>
-    <string name="create_an_account">Create an account</string>
+    <string name="createAnAccount">Create an account</string>
 </resources>
