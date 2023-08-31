@@ -18,3 +18,13 @@ X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 ƒ
 Sapp/src/androidTest/java/com/waqarvicky/socialnetworkapp/ExampleInstrumentedTest.kt,0\6\065619a002cd8fcd91b5ab6db00e64558c9f6994
+O
+.github/workflows/run_tests.yml,8\5\8505750166038a98c0ff9e6a43ef14abf3cfcb60
+L
+.github/workflows/deploy.yml,f\1\f130ad0d1d16d0d70ec30d355f736ae3784b05cf
+C
+settings.gradle.kts,7\4\749edfcc96398253e5b3416184e95c46621da850
+{
+Kapp/src/main/java/com/waqarvicky/socialnetworkapp/common/SpacerComponent.kt,a\2\a23799d0032784f9c0640a0dcbd508e235c49c20
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
