@@ -32,10 +32,6 @@ q
 Aapp/src/main/java/com/waqarvicky/socialnetworkapp/MainActivity.kt,7\f\7fc4b9e45640d6781b56227403150087822121bb
 D
 app/build.gradle.kts,d\2\d2a4383452aad84a18429a5844d31330a012a9e6
-}
-Mapp/src/androidTest/java/com/waqarvicky/socialnetworkapp/signup/SignUpTest.kt,d\0\d02b15602987c8f5e0af185497d747731ef53256
-~
-Napp/src/androidTest/java/com/waqarvicky/socialnetworkapp/signup/SignUpRobot.kt,1\c\1c6bb1057630036b1b44d4c72927e8ea073ade35
 r
 Bapp/src/main/java/com/waqarvicky/socialnetworkapp/signup/SignUp.kt,c\d\cdb775968595eacfe0dc6fa0f8965f0baace31de
 Å
