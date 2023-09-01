@@ -24,6 +24,8 @@ class SignUpViewModel(
 
             CredentialsValidationResult.InvalidPassword ->
                 _mutableSignUpState.value = SignUpState.BadPassword
+
+            CredentialsValidationResult.Valid -> TODO()
         }
     }
 

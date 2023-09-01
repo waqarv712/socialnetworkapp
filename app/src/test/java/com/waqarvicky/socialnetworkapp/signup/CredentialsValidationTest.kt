@@ -1,9 +1,11 @@
 package com.waqarvicky.socialnetworkapp.signup
 
 import com.waqarvicky.socialnetworkapp.InstantTaskExecutorExtension
+import com.waqarvicky.socialnetworkapp.domain.validation.CredentialsValidationResult
 import com.waqarvicky.socialnetworkapp.domain.validation.RegxCredentialsValidator
 import com.waqarvicky.socialnetworkapp.signup.state.SignUpState
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -58,5 +60,11 @@ class CredentialsValidationTest {
         assertEquals(SignUpState.BadPassword, viewModel.signUpState.value)
     }
 
+    @Test
+    fun validCredentials() {
+        val validator = RegxCredentialsValidator()
+        val result = validator.validate("waqarv712@gmail.com", "12ABcd3!^")
+        assertEquals(CredentialsValidationResult.Valid, result)
+    }
 
 }
