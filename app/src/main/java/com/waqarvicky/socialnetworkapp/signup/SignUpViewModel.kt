@@ -15,7 +15,7 @@ class SignUpViewModel {
         about: String
     ) {
 
-        when (validate(email, password)) {
+        when (RegxCredentialsValidator().validate(email, password)) {
             CredentialsValidationResult.InvalidEmail ->
                 _mutableSignUpState.value = SignUpState.BadEmail
 
@@ -24,22 +24,24 @@ class SignUpViewModel {
         }
     }
 
-    private fun validate(
-        email: String,
-        password: String
-    ): CredentialsValidationResult {
-        val emailRegx =
-            """[a-zA-Z0-9+._%\-]{1,64}@[a-zA-Z0-9][a-zA-Z0-9\-]{1,64}(\.[a-zA-Z0-9][a-zA-Z0-9\-]{1,25})"""
-        val emailPattern = Pattern.compile(emailRegx)
-        val passwordRegx = """^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*+=\-]).{8,}$"""
-        val passwordPattern = Pattern.compile(passwordRegx)
+    class RegxCredentialsValidator {
+        fun validate(
+            email: String,
+            password: String
+        ): CredentialsValidationResult {
+            val emailRegx =
+                """[a-zA-Z0-9+._%\-]{1,64}@[a-zA-Z0-9][a-zA-Z0-9\-]{1,64}(\.[a-zA-Z0-9][a-zA-Z0-9\-]{1,25})"""
+            val emailPattern = Pattern.compile(emailRegx)
+            val passwordRegx = """^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*+=\-]).{8,}$"""
+            val passwordPattern = Pattern.compile(passwordRegx)
 
-        val result = if (!emailPattern.matcher(email).matches()) {
-            CredentialsValidationResult.InvalidEmail
-        } else if (!passwordPattern.matcher(password).matches()) {
-            CredentialsValidationResult.InvalidPassword
-        } else TODO()
-        return result
+            val result = if (!emailPattern.matcher(email).matches()) {
+                CredentialsValidationResult.InvalidEmail
+            } else if (!passwordPattern.matcher(password).matches()) {
+                CredentialsValidationResult.InvalidPassword
+            } else TODO()
+            return result
+        }
     }
 
     sealed class CredentialsValidationResult {
