@@ -1,9 +1,9 @@
 package com.waqarvicky.socialnetworkapp.signup
 
 import com.waqarvicky.socialnetworkapp.InstantTaskExecutorExtension
+import com.waqarvicky.socialnetworkapp.domain.validation.RegxCredentialsValidator
 import com.waqarvicky.socialnetworkapp.signup.state.SignUpState
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -35,7 +35,7 @@ class CredentialsValidationTest {
     )
     fun invalidEmail(email: String) {
 
-        val viewModel = SignUpViewModel()
+        val viewModel = SignUpViewModel(RegxCredentialsValidator())
         viewModel.createAccount(email, ":password:", ":about:")
 
         assertEquals(SignUpState.BadEmail, viewModel.signUpState.value)
@@ -53,7 +53,7 @@ class CredentialsValidationTest {
         "'ABCDEF78#@'"
     )
     fun invalidPassword(password: String) {
-        val viewModel = SignUpViewModel()
+        val viewModel = SignUpViewModel(RegxCredentialsValidator())
         viewModel.createAccount("waqarv712@gmail.com", password, ":about:")
         assertEquals(SignUpState.BadPassword, viewModel.signUpState.value)
     }
