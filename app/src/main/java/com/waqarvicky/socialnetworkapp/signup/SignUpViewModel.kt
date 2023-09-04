@@ -13,8 +13,6 @@ class SignUpViewModel(
     private val _mutableSignUpState: MutableLiveData<SignUpState> = MutableLiveData<SignUpState>()
     val signUpState: LiveData<SignUpState> = _mutableSignUpState
 
-    private val usersForPassword = mutableMapOf<String, MutableList<User>>()
-
     fun createAccount(
         email: String,
         password: String,
