@@ -9,7 +9,8 @@ import com.waqarvicky.socialnetworkapp.signup.state.SignUpState
 import com.waqarvicky.socialnetworkapp.user.InMemoryUserCatalog
 
 class SignUpViewModel(
-    private val credentialsValidator: RegxCredentialsValidator
+    private val credentialsValidator: RegxCredentialsValidator,
+    private val userRepository: UserRepository
 ) {
     private val _mutableSignUpState: MutableLiveData<SignUpState> = MutableLiveData<SignUpState>()
     val signUpState: LiveData<SignUpState> = _mutableSignUpState
@@ -32,10 +33,5 @@ class SignUpViewModel(
             }
         }
     }
-
-    private val userRepository = UserRepository(InMemoryUserCatalog())
-
-    val userCatalog = InMemoryUserCatalog()
-
 
 }

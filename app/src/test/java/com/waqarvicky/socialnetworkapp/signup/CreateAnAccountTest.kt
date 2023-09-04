@@ -2,8 +2,10 @@ package com.waqarvicky.socialnetworkapp.signup
 
 import com.waqarvicky.socialnetworkapp.InstantTaskExecutorExtension
 import com.waqarvicky.socialnetworkapp.domain.user.User
+import com.waqarvicky.socialnetworkapp.domain.user.UserRepository
 import com.waqarvicky.socialnetworkapp.domain.validation.RegxCredentialsValidator
 import com.waqarvicky.socialnetworkapp.signup.state.SignUpState
+import com.waqarvicky.socialnetworkapp.user.InMemoryUserCatalog
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,7 +16,10 @@ class CreateAnAccountTest {
     @Test
     fun accountCreated() {
         val waqar = User("waqarId", "waqar@socianetwork.com", "about Waqar")
-        val viewModel = SignUpViewModel(RegxCredentialsValidator())
+        val viewModel = SignUpViewModel(
+            RegxCredentialsValidator(),
+            UserRepository(InMemoryUserCatalog())
+        )
 
         viewModel.createAccount(waqar.email, "Waqar@2023", waqar.about)
 
@@ -24,7 +29,10 @@ class CreateAnAccountTest {
     @Test
     fun anotherAccountCreated() {
         val bob = User("bobId","bob@socialnetwork.com", "about Bob")
-        val viewModel = SignUpViewModel(RegxCredentialsValidator())
+        val viewModel = SignUpViewModel(
+            RegxCredentialsValidator(),
+            UserRepository(InMemoryUserCatalog())
+        )
         viewModel.createAccount(bob.email, "Ple@socialnetwork1.com", bob.about)
         assertEquals(SignUpState.SignedUp(bob), viewModel.signUpState.value)
     }
@@ -33,7 +41,10 @@ class CreateAnAccountTest {
     fun createDuplicateAccount() {
         val anna = User("annaId", "anna@socialnetwork.com", "about Anna")
 
-        val viewModel = SignUpViewModel(RegxCredentialsValidator()).also {
+        val viewModel = SignUpViewModel(
+            RegxCredentialsValidator(),
+            UserRepository(InMemoryUserCatalog())
+        ).also {
             it.createAccount(anna.email, "AnNaPas$123", anna.about)
         }
 
