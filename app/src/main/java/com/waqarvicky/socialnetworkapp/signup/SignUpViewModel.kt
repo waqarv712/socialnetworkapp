@@ -2,10 +2,11 @@ package com.waqarvicky.socialnetworkapp.signup
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.waqarvicky.socialnetworkapp.domain.user.User
+import com.waqarvicky.socialnetworkapp.domain.user.UserRepository
 import com.waqarvicky.socialnetworkapp.domain.validation.CredentialsValidationResult
 import com.waqarvicky.socialnetworkapp.domain.validation.RegxCredentialsValidator
 import com.waqarvicky.socialnetworkapp.signup.state.SignUpState
+import com.waqarvicky.socialnetworkapp.user.InMemoryUserCatalog
 
 class SignUpViewModel(
     private val credentialsValidator: RegxCredentialsValidator
@@ -34,56 +35,7 @@ class SignUpViewModel(
 
     private val userRepository = UserRepository(InMemoryUserCatalog())
 
-    class UserRepository(private val userCatalog: InMemoryUserCatalog) {
-        fun signUp(
-            email: String,
-            about: String,
-            password: String
-        ): SignUpState {
-            val result = try {
-                val user = userCatalog.createUser(email, about, password)
-                SignUpState.SignedUp(user)
-            } catch (duplicateAccount: DuplicateAccountException) {
-                SignUpState.DuplicateAccount
-            }
-            return result
-        }
-    }
-
     val userCatalog = InMemoryUserCatalog()
-
-    class InMemoryUserCatalog(
-        private val usersForPassword: MutableMap<String, MutableList<User>> = mutableMapOf()
-    ) {
-        fun createUser(
-            email: String,
-            about: String,
-            password: String
-        ): User {
-            checkAccountExists(email)
-            val userId = createUserIdForEmail(email)
-            val user = User(userId, email, about)
-            saveUser(password, user)
-            return user
-        }
-
-        private fun saveUser(
-            password: String,
-            user: User
-        ) {
-            usersForPassword.getOrPut(password, ::mutableListOf).add(user)
-        }
-
-        private fun createUserIdForEmail(email: String) = email.takeWhile { it != '@' } + "Id"
-
-        private fun checkAccountExists(email: String) {
-            if (usersForPassword.values.flatten().any { it.email == email }) {
-                throw DuplicateAccountException()
-            }
-        }
-    }
-
-    class DuplicateAccountException : Throwable()
 
 
 }
