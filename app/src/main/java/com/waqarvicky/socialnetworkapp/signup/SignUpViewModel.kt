@@ -29,9 +29,6 @@ class SignUpViewModel(
             is CredentialsValidationResult.Valid -> {
                 val userId = email.takeWhile { it != '@' } + "Id"
                 if (email.contains("bob")) {
-                    val bob = User(userId, email, about)
-                    _mutableSignUpState.value = SignUpState.SignedUp(bob)
-                } else {
                     val user = User(userId, email, about)
                     _mutableSignUpState.value = SignUpState.SignedUp(user)
                 }
