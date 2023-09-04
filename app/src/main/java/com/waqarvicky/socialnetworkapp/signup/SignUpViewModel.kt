@@ -13,6 +13,8 @@ class SignUpViewModel(
     private val _mutableSignUpState: MutableLiveData<SignUpState> = MutableLiveData<SignUpState>()
     val signUpState: LiveData<SignUpState> = _mutableSignUpState
 
+    private val usersForPassword = mutableMapOf<String, MutableList<User>>()
+
     fun createAccount(
         email: String,
         password: String,
@@ -27,12 +29,15 @@ class SignUpViewModel(
                 _mutableSignUpState.value = SignUpState.BadPassword
 
             is CredentialsValidationResult.Valid -> {
-
-                if (email.contains("anna")) {
+                val isKnown = usersForPassword.values
+                    .flatten()
+                    .any { it.email == email }
+                if (isKnown) {
                     _mutableSignUpState.value = SignUpState.DuplicateAccount
                 } else {
                     val userId = email.takeWhile { it != '@' } + "Id"
                     val user = User(userId, email, about)
+                    usersForPassword.getOrPut(password, ::mutableListOf).add(user)
                     _mutableSignUpState.value = SignUpState.SignedUp(user)
                 }
             }
