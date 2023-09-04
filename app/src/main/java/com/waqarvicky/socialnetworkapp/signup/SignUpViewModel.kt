@@ -2,6 +2,7 @@ package com.waqarvicky.socialnetworkapp.signup
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.waqarvicky.socialnetworkapp.domain.user.User
 import com.waqarvicky.socialnetworkapp.domain.validation.CredentialsValidationResult
 import com.waqarvicky.socialnetworkapp.domain.validation.RegxCredentialsValidator
 import com.waqarvicky.socialnetworkapp.signup.state.SignUpState
@@ -19,13 +20,16 @@ class SignUpViewModel(
     ) {
 
         when (credentialsValidator.validate(email, password)) {
-            CredentialsValidationResult.InvalidEmail ->
+            is CredentialsValidationResult.InvalidEmail ->
                 _mutableSignUpState.value = SignUpState.BadEmail
 
-            CredentialsValidationResult.InvalidPassword ->
+            is CredentialsValidationResult.InvalidPassword ->
                 _mutableSignUpState.value = SignUpState.BadPassword
 
-            CredentialsValidationResult.Valid -> TODO()
+            is CredentialsValidationResult.Valid -> {
+                val user = User("waqarId", "waqar@socianetwork.com", "about Waqar")
+                _mutableSignUpState.value = SignUpState.SignedUp(user)
+            }
         }
     }
 
