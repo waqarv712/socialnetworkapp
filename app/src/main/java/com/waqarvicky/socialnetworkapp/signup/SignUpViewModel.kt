@@ -53,13 +53,26 @@ class SignUpViewModel(
         about: String,
         password: String
     ): User {
-        if (usersForPassword.values.flatten().any { it.email == email }){
+        checkAccountExists(email)
+        val userId = createUserIdForEmail(email)
+        val user = User(userId, email, about)
+        saveUser(password, user)
+        return user
+    }
+
+    private fun saveUser(
+        password: String,
+        user: User
+    ) {
+        usersForPassword.getOrPut(password, ::mutableListOf).add(user)
+    }
+
+    private fun createUserIdForEmail(email: String) = email.takeWhile { it != '@' } + "Id"
+
+    private fun checkAccountExists(email: String) {
+        if (usersForPassword.values.flatten().any { it.email == email }) {
             throw DuplicateAccountException()
         }
-        val userId = email.takeWhile { it != '@' } + "Id"
-        val user = User(userId, email, about)
-        usersForPassword.getOrPut(password, ::mutableListOf).add(user)
-        return user
     }
 
     class DuplicateAccountException : Throwable()
