@@ -21,4 +21,12 @@ class CreateAnAccountTest {
         assertEquals(SignUpState.SignedUp(waqar), viewModel.signUpState.value)
     }
 
+    @Test
+    fun anotherAccountCreated() {
+        val bob = User("bobId","bob@socialnetwork.com", "about Bob")
+        val viewModel = SignUpViewModel(RegxCredentialsValidator())
+        viewModel.createAccount(bob.email, "Ple@socialnetwork1.com", bob.about)
+        assertEquals(SignUpState.SignedUp(bob), viewModel.signUpState.value)
+    }
+    
 }

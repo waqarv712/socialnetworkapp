@@ -27,8 +27,13 @@ class SignUpViewModel(
                 _mutableSignUpState.value = SignUpState.BadPassword
 
             is CredentialsValidationResult.Valid -> {
-                val user = User("waqarId", "waqar@socianetwork.com", "about Waqar")
-                _mutableSignUpState.value = SignUpState.SignedUp(user)
+                if (email.contains("bob")) {
+                    val bob = User("bobId", "bob@socialnetwork.com", "about Bob")
+                    _mutableSignUpState.value = SignUpState.SignedUp(bob)
+                } else {
+                    val user = User("waqarId", "waqar@socianetwork.com", "about Waqar")
+                    _mutableSignUpState.value = SignUpState.SignedUp(user)
+                }
             }
         }
     }
