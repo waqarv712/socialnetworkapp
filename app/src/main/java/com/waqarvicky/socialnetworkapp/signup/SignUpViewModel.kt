@@ -29,18 +29,20 @@ class SignUpViewModel(
                 _mutableSignUpState.value = SignUpState.BadPassword
 
             is CredentialsValidationResult.Valid -> {
-                _mutableSignUpState.value = signUpState(email, about, password)
+                _mutableSignUpState.value = signUp(email, about, password)
             }
         }
     }
 
-    private fun signUpState(
+    val userCatalog = InMemoryUserCatalog()
+
+    private fun signUp(
         email: String,
         about: String,
         password: String
     ): SignUpState {
         val result = try {
-            val user = createUser(email, about, password)
+            val user = userCatalog.createUser(email, about, password)
             SignUpState.SignedUp(user)
         } catch (duplicateAccount: DuplicateAccountException) {
             SignUpState.DuplicateAccount
@@ -48,30 +50,34 @@ class SignUpViewModel(
         return result
     }
 
-    private fun createUser(
-        email: String,
-        about: String,
-        password: String
-    ): User {
-        checkAccountExists(email)
-        val userId = createUserIdForEmail(email)
-        val user = User(userId, email, about)
-        saveUser(password, user)
-        return user
-    }
-
-    private fun saveUser(
-        password: String,
-        user: User
+    class InMemoryUserCatalog(
+        private val usersForPassword: MutableMap<String, MutableList<User>> = mutableMapOf()
     ) {
-        usersForPassword.getOrPut(password, ::mutableListOf).add(user)
-    }
+        fun createUser(
+            email: String,
+            about: String,
+            password: String
+        ): User {
+            checkAccountExists(email)
+            val userId = createUserIdForEmail(email)
+            val user = User(userId, email, about)
+            saveUser(password, user)
+            return user
+        }
 
-    private fun createUserIdForEmail(email: String) = email.takeWhile { it != '@' } + "Id"
+        private fun saveUser(
+            password: String,
+            user: User
+        ) {
+            usersForPassword.getOrPut(password, ::mutableListOf).add(user)
+        }
 
-    private fun checkAccountExists(email: String) {
-        if (usersForPassword.values.flatten().any { it.email == email }) {
-            throw DuplicateAccountException()
+        private fun createUserIdForEmail(email: String) = email.takeWhile { it != '@' } + "Id"
+
+        private fun checkAccountExists(email: String) {
+            if (usersForPassword.values.flatten().any { it.email == email }) {
+                throw DuplicateAccountException()
+            }
         }
     }
 
