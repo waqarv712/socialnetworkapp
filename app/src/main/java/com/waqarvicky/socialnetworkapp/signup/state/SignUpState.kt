@@ -6,6 +6,8 @@ sealed class SignUpState {
 
     object BadEmail : SignUpState()
     object BadPassword : SignUpState()
+    object DuplicateAccount: SignUpState()
+
     data class SignedUp(val user: User): SignUpState()
 
 }
