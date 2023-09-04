@@ -28,7 +28,5 @@ C
 Kapp/src/main/java/com/waqarvicky/socialnetworkapp/common/SpacerComponent.kt,a\2\a23799d0032784f9c0640a0dcbd508e235c49c20
 P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
-D
-app/build.gradle.kts,d\2\d2a4383452aad84a18429a5844d31330a012a9e6
 Å
 Qapp/src/test/java/com/waqarvicky/socialnetworkapp/InstantTaskExecutorExtension.kt,2\d\2d07aa4bb98582c86da77058dbde5c5cc14303d1

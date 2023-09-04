@@ -18,6 +18,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -33,11 +34,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.waqarvicky.socialnetworkapp.R
 import com.waqarvicky.socialnetworkapp.common.SpacerHeight
+import com.waqarvicky.socialnetworkapp.domain.user.UserRepository
+import com.waqarvicky.socialnetworkapp.domain.validation.RegxCredentialsValidator
+import com.waqarvicky.socialnetworkapp.user.InMemoryUserCatalog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(device = Devices.PIXEL_4, showSystemUi = true)
 @Composable
 fun SignUp() {
+
+    val credentialsValidator = RegxCredentialsValidator()
+    val userRepository = UserRepository(InMemoryUserCatalog())
+    val signUpViewModel = SignUpViewModel(credentialsValidator, userRepository)
+
+    var email by remember {
+        mutableStateOf("")
+    }
+    var password by remember {
+        mutableStateOf("")
+    }
+
+    val signUpState by signUpViewModel.signUpState.observeAsState()
 
     Column(
         modifier = Modifier
@@ -50,9 +67,6 @@ fun SignUp() {
 
         SpacerHeight(16.dp)
 
-        var email by remember {
-            mutableStateOf("")
-        }
         EmailField(
             value = email,
             onValueChange = {
@@ -61,9 +75,6 @@ fun SignUp() {
 
         SpacerHeight(8.dp)
 
-        var password by remember {
-            mutableStateOf("")
-        }
         PasswordField(
             password
         ) {

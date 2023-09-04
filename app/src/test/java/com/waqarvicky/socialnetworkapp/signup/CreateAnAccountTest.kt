@@ -13,13 +13,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(InstantTaskExecutorExtension::class)
 class CreateAnAccountTest {
 
+    val viewModel = SignUpViewModel(
+        RegxCredentialsValidator(),
+        UserRepository(InMemoryUserCatalog())
+    )
+
     @Test
     fun accountCreated() {
         val waqar = User("waqarId", "waqar@socianetwork.com", "about Waqar")
-        val viewModel = SignUpViewModel(
-            RegxCredentialsValidator(),
-            UserRepository(InMemoryUserCatalog())
-        )
 
         viewModel.createAccount(waqar.email, "Waqar@2023", waqar.about)
 
@@ -29,10 +30,7 @@ class CreateAnAccountTest {
     @Test
     fun anotherAccountCreated() {
         val bob = User("bobId","bob@socialnetwork.com", "about Bob")
-        val viewModel = SignUpViewModel(
-            RegxCredentialsValidator(),
-            UserRepository(InMemoryUserCatalog())
-        )
+
         viewModel.createAccount(bob.email, "Ple@socialnetwork1.com", bob.about)
         assertEquals(SignUpState.SignedUp(bob), viewModel.signUpState.value)
     }
