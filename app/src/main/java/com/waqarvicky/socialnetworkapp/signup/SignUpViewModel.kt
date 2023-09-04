@@ -35,13 +35,22 @@ class SignUpViewModel(
                 if (isKnown) {
                     _mutableSignUpState.value = SignUpState.DuplicateAccount
                 } else {
-                    val userId = email.takeWhile { it != '@' } + "Id"
-                    val user = User(userId, email, about)
-                    usersForPassword.getOrPut(password, ::mutableListOf).add(user)
+                    val user = createUser(email, about, password)
                     _mutableSignUpState.value = SignUpState.SignedUp(user)
                 }
             }
         }
+    }
+
+    private fun createUser(
+        email: String,
+        about: String,
+        password: String
+    ): User {
+        val userId = email.takeWhile { it != '@' } + "Id"
+        val user = User(userId, email, about)
+        usersForPassword.getOrPut(password, ::mutableListOf).add(user)
+        return user
     }
 
 
