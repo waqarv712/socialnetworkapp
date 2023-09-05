@@ -36,12 +36,15 @@ import com.waqarvicky.socialnetworkapp.R
 import com.waqarvicky.socialnetworkapp.common.SpacerHeight
 import com.waqarvicky.socialnetworkapp.domain.user.UserRepository
 import com.waqarvicky.socialnetworkapp.domain.validation.RegxCredentialsValidator
+import com.waqarvicky.socialnetworkapp.signup.state.SignUpState
 import com.waqarvicky.socialnetworkapp.user.InMemoryUserCatalog
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(device = Devices.PIXEL_4, showSystemUi = true)
+//@Preview(device = Devices.PIXEL_4, showSystemUi = true)
 @Composable
-fun SignUp() {
+fun SignUp(
+    onsignedUp: () -> Unit
+) {
 
     val credentialsValidator = RegxCredentialsValidator()
     val userRepository = UserRepository(InMemoryUserCatalog())
@@ -55,6 +58,10 @@ fun SignUp() {
     }
 
     val signUpState by signUpViewModel.signUpState.observeAsState()
+
+    if (signUpState is SignUpState.SignedUp) {
+        onsignedUp()
+    }
 
     Column(
         modifier = Modifier
@@ -83,7 +90,9 @@ fun SignUp() {
 
         SpacerHeight(16.dp)
 
-        Button(onClick = { }) {
+        Button(onClick = {
+            signUpViewModel.createAccount(email, password, "")
+        }) {
             Text(text = stringResource(id = R.string.signUp))
         }
     }
@@ -102,7 +111,8 @@ private fun EmailField(
         label = {
             Text(text = stringResource(id = R.string.email))
         },
-        onValueChange = onValueChange )
+        onValueChange = onValueChange
+    )
 }
 
 @Composable
@@ -126,7 +136,8 @@ private fun PasswordField(
         trailingIcon = {
             VisibilityToggle(passwordVisible)
         },
-        onValueChange = onValueChange)
+        onValueChange = onValueChange
+    )
 }
 
 @Composable

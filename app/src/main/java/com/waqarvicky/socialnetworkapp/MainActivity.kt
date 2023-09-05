@@ -23,7 +23,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SignUp()
+                    SignUp{
+                        //navigate to timeline
+                    }
                 }
             }
         }

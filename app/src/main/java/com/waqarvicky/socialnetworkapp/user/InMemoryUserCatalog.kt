@@ -18,18 +18,18 @@ class InMemoryUserCatalog(
         return user
     }
 
+    private fun checkAccountExists(email: String) {
+        if (usersForPassword.values.flatten().any { it.email == email }) {
+            throw DuplicateAccountException()
+        }
+    }
+
+    private fun createUserIdForEmail(email: String) = email.takeWhile { it != '@' } + "Id"
+
     private fun saveUser(
         password: String,
         user: User
     ) {
         usersForPassword.getOrPut(password, ::mutableListOf).add(user)
-    }
-
-    private fun createUserIdForEmail(email: String) = email.takeWhile { it != '@' } + "Id"
-
-    private fun checkAccountExists(email: String) {
-        if (usersForPassword.values.flatten().any { it.email == email }) {
-            throw DuplicateAccountException()
-        }
     }
 }

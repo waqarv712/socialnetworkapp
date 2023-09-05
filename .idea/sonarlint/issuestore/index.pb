@@ -30,3 +30,11 @@ P
 Kapp/src/main/java/com/waqarvicky/socialnetworkapp/common/SpacerComponent.kt,a\2\a23799d0032784f9c0640a0dcbd508e235c49c20
 Å
 Qapp/src/test/java/com/waqarvicky/socialnetworkapp/InstantTaskExecutorExtension.kt,2\d\2d07aa4bb98582c86da77058dbde5c5cc14303d1
+è
+_app/src/main/java/com/waqarvicky/socialnetworkapp/domain/validation/RegxCredentialsValidator.kt,2\7\27744d7a166d53727b11e37319a386bb4eea01ea
+í
+bapp/src/main/java/com/waqarvicky/socialnetworkapp/domain/validation/CredentialsValidationResult.kt,b\e\be93b81249a9ba67c7476e3735ea513c4f3aea9d
+}
+Mapp/src/main/java/com/waqarvicky/socialnetworkapp/signup/state/SignUpState.kt,6\1\61d2f044a62658fcde353cbc59dd4f07c93f4b9b
+ê
+`app/src/main/java/com/waqarvicky/socialnetworkapp/domain/exceptions/DuplicateAccountException.kt,d\2\d2b15f860bf557151b64de9aca611ce392e19a59
