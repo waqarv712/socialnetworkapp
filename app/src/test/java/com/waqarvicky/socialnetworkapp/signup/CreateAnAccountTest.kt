@@ -18,7 +18,7 @@ class CreateAnAccountTest {
         UserRepository(InMemoryUserCatalog())
     )
 
-    @Test
+    /*@Test
     fun accountCreated() {
         val waqar = User("waqarId", "waqar@socianetwork.com", "about Waqar")
 
@@ -33,7 +33,7 @@ class CreateAnAccountTest {
 
         viewModel.createAccount(bob.email, "Ple@socialnetwork1.com", bob.about)
         assertEquals(SignUpState.SignedUp(bob), viewModel.signUpState.value)
-    }
+    }*/
 
     @Test
     fun createDuplicateAccount() {

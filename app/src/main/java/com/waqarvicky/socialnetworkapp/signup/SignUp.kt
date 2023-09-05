@@ -39,7 +39,6 @@ import com.waqarvicky.socialnetworkapp.domain.validation.RegxCredentialsValidato
 import com.waqarvicky.socialnetworkapp.signup.state.SignUpState
 import com.waqarvicky.socialnetworkapp.user.InMemoryUserCatalog
 
-@OptIn(ExperimentalMaterial3Api::class)
 //@Preview(device = Devices.PIXEL_4, showSystemUi = true)
 @Composable
 fun SignUp(
